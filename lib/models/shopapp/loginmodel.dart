@@ -2,12 +2,13 @@ class shoploginmodel
 {
   late bool status;
   late String  message;
-  late userdatashop data;
+  userdatashop? data;
   shoploginmodel.fromJson(Map<String,dynamic> json)
   {
     this.status=json['status'];
     this.message=json['message'];
-    this.data = (json['data'] != null? userdatashop.fromJson(json['data']):null)!;
+    this.data = json['data'] != null ? userdatashop.fromJson(json['data']) : null;
+
   }
 }
 class userdatashop{

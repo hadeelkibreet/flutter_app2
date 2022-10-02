@@ -3,6 +3,7 @@ import 'package:flutter_app2/layout/shopLayout/cubit/statesShop.dart';
 import 'package:flutter_app2/models/shopapp/cateogries_model.dart';
 import 'package:flutter_app2/models/shopapp/changeFavoretModel.dart';
 import 'package:flutter_app2/models/shopapp/home_model.dart';
+import 'package:flutter_app2/models/shopapp/loginmodel.dart';
 import 'package:flutter_app2/moduls/shop_app/cateogries/cateogriesScreen.dart';
 import 'package:flutter_app2/moduls/shop_app/favorits/favoritesScreen.dart';
 import 'package:flutter_app2/moduls/shop_app/products/productsScreen.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_app2/netWork/end_points.dart';
 
 import '../../../models/shopapp/FavoritesModel.dart';
+import '../../../models/user/user_model.dart';
 import '../../../netWork/local/cache_helper.dart';
 import '../../../shared/components/constants.dart';
 
@@ -55,7 +57,8 @@ void changeBottom(int index)
           }
         );
       });
-      print(favorites.toString());
+     print(favorites.toString());
+      //print(homeModel1!.data!.products.length);
       emit(ShopSuccessHomeDataState());
     }).catchError((error)
     {
@@ -85,6 +88,7 @@ void changeBottom(int index)
   void changeFavorites(int productId) {
     favorites[productId] = !favorites[productId]!;
     emit(ShopChangeFavoritesState());
+
     DioHelper.postData(
       url: FAVORITES,
       token: token,
@@ -92,8 +96,9 @@ void changeBottom(int index)
         'product_id': productId,
       },
     ).then((value) {
+     // print(token);
       changeFavoritesModel = ChangeFavoritesModel.fromJson(value.data);
-       print(value.data);
+      print(value.data);
       if (!changeFavoritesModel!.status!) {
         favorites[productId] = favorites[productId]!;
       } else {
@@ -122,6 +127,30 @@ void changeBottom(int index)
       emit(ShopErrorChangeFavoritesState(error.toString()));
     });
   }
+
+  shopUserDatamodel? userModel;
+
+  void getUserData() {
+    emit(ShopLoadingGetUserDataState());
+    DioHelper.getData(
+      url: PROFILE,
+      token: token,
+    ).then((value) {
+
+
+      userModel = shopUserDatamodel.fromJson(value.data) ;
+      print(userModel!.data?.name );
+
+
+      emit(ShopSuccessGetUserDataState());
+    }).catchError((error) {
+      emit(ShopErrorUserDataState(error.toString()));
+      print(error);
+
+    });
+  }
+
+
 
 
 }

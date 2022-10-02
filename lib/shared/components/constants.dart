@@ -18,8 +18,9 @@ void signOut(context)
    final pattern = RegExp('.{1,800}');
    pattern.allMatches(text).forEach((element)=> print(element.group(0)));
  }
+ String ?token = CacheHelper.getData(Key1: 'token');
 
- String ?token = '';
+ // String ?token = '';
 
  String getOS(){
    return Platform.operatingSystem;

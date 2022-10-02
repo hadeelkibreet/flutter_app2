@@ -2,11 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/models/shopapp/loginmodel.dart';
-import 'package:flutter_app2/moduls/shop_app/cubitShop/statetsShop.dart';
+import 'package:flutter_app2/moduls/shop_app/shop_login/cubitShop/statetsShop.dart';
 import 'package:flutter_app2/netWork/end_points.dart';
 import 'package:flutter_app2/netWork/remote/dio_helper.dart';
 import 'package:flutter_app2/shared/components/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class shoplogincubit extends Cubit<shoploginstates>{
 

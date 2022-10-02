@@ -2,12 +2,15 @@ import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/layout/shopLayout/shop_Layuot.dart';
 import 'package:flutter_app2/models/shopapp/loginmodel.dart';
-import 'package:flutter_app2/moduls/shop_app/cubitShop/cubitShop.dart';
-import 'package:flutter_app2/moduls/shop_app/cubitShop/statetsShop.dart';
+import 'package:flutter_app2/moduls/shop_app/shop_login/cubitShop/cubitShop.dart';
+import 'package:flutter_app2/moduls/shop_app/shop_login/cubitShop/statetsShop.dart';
+
 import 'package:flutter_app2/moduls/shop_app/shop_register/Shop_register_screen.dart';
 import 'package:flutter_app2/netWork/local/cache_helper.dart';
 import 'package:flutter_app2/shared/components/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../shared/components/constants.dart';
 
 
 class shoploginscreen extends StatelessWidget {
@@ -35,7 +38,7 @@ class shoploginscreen extends StatelessWidget {
               states: snackbarStates.SUCCESS
 
              );
-             CacheHelper.saveData(Key1: 'token', value1: state.loginmodel.data.token).then((value)
+             CacheHelper.saveData(Key1: 'token', value1: token).then((value)
              {
                NavigatorFinish(context, shopLayuot());
 

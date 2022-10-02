@@ -43,6 +43,13 @@ class ShopErrorChangeFavoritesState extends shopLayuotStates
 }
 
 class ShopLoadingGetFavoritesState extends shopLayuotStates{}
-
 class ShopSuccessGetChangeFavoritesState extends shopLayuotStates{}
 class ShopSuccessGetChangeFavoritesState11 extends shopLayuotStates{}
+
+class ShopLoadingGetUserDataState extends shopLayuotStates{}
+class ShopSuccessGetUserDataState extends shopLayuotStates{}
+class ShopErrorUserDataState extends shopLayuotStates
+{
+  final dynamic error;
+  ShopErrorUserDataState(this.error);
+}
