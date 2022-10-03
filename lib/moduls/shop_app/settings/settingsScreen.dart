@@ -41,7 +41,11 @@ class settingScreen extends StatelessWidget {
                     child: Column(
                       // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
+                        if(state is ShopLoadingUpdataState )
+                          LinearProgressIndicator(),
+                        SizedBox(
+                          height: 20.0,
+                        ),
                         defaultFormField(Controller: namecontroller,
                             Type: TextInputType.text,
                             label: 'Name',
@@ -66,7 +70,19 @@ class settingScreen extends StatelessWidget {
                         SizedBox(
                           height: 25.0,
                         ),
-
+                        defaultButton(
+                            onpre: ()
+                            {
+                              if(formKey.currentState!.validate()){
+                                shoplayuotCubit.get(context).UpdataUser(
+                                    name: namecontroller.text,
+                                    email: emailcontroller.text,
+                                    phone: phonecontroller.text);
+                              }
+                            }, text: 'UPDATA'),
+                        SizedBox(
+                          height: 20.0,
+                        ),
                            defaultButton(
                               onpre: ()
                               {

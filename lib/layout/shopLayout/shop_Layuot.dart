@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/layout/shopLayout/cubit/cubitShop.dart';
 import 'package:flutter_app2/layout/shopLayout/cubit/statesShop.dart';
+import 'package:flutter_app2/moduls/news_app/sciences/SearchScreen/Search_Screen.dart';
 import 'package:flutter_app2/moduls/shop_app/products/productsScreen.dart';
 import 'package:flutter_app2/moduls/shop_app/search/searchScreen.dart';
 import 'package:flutter_app2/moduls/shop_app/shop_login/shop_login.dart';
@@ -23,7 +24,7 @@ class  shopLayuot extends StatelessWidget {
               actions: [
                 IconButton(onPressed: ()
               {
-                NavigatorTo(context, shoploginscreen());
+                NavigatorTo(context, searchScreen());
               }, icon: Icon(Icons.search)),
                 IconButton(onPressed: ()
                 {
