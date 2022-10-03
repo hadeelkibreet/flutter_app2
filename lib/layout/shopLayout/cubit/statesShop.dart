@@ -53,3 +53,5 @@ class ShopErrorUserDataState extends shopLayuotStates
   final dynamic error;
   ShopErrorUserDataState(this.error);
 }
+class ShopLoadingtokennDataState extends shopLayuotStates{}
+class ShoptokennDataSucssesState extends shopLayuotStates{}

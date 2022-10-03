@@ -4,18 +4,18 @@ import 'package:flutter_app2/layout/shopLayout/shop_Layuot.dart';
 import 'package:flutter_app2/models/shopapp/loginmodel.dart';
 import 'package:flutter_app2/moduls/shop_app/shop_login/cubitShop/cubitShop.dart';
 import 'package:flutter_app2/moduls/shop_app/shop_login/cubitShop/statetsShop.dart';
-
 import 'package:flutter_app2/moduls/shop_app/shop_register/Shop_register_screen.dart';
 import 'package:flutter_app2/netWork/local/cache_helper.dart';
 import 'package:flutter_app2/shared/components/components.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../shared/adaptive/adaptivw_indicator.dart';
 import '../../../shared/components/constants.dart';
 
 
 class shoploginscreen extends StatelessWidget {
-  var emailcontroller=TextEditingController();
   var fromkey= GlobalKey<FormState>();
+  var emailcontroller=TextEditingController();
   var passwordcontroller=TextEditingController();
   late shoploginmodel loginmodel1;
 
@@ -32,14 +32,18 @@ class shoploginscreen extends StatelessWidget {
          {
            if(state.loginmodel.status == true){
              print(state.loginmodel.message);
-             print(state.loginmodel.status);
+             print(state.loginmodel.data!.token!.toString()+'shop login');
              snackbarBuilder(mas:state.loginmodel.message,
              context: context,
               states: snackbarStates.SUCCESS
 
              );
-             CacheHelper.saveData(Key1: 'token', value1: token).then((value)
+             CacheHelper.saveData(
+               key: 'token',
+               value: state.loginmodel.data!.token!,
+             ).then((value)
              {
+               token= state.loginmodel.data!.token!;
                NavigatorFinish(context, shopLayuot());
 
              });
@@ -120,9 +124,9 @@ class shoploginscreen extends StatelessWidget {
                        SizedBox(
                          height: 25.0,
                        ),
-                       BuildCondition(
-                         condition: state is! shoploginloadingstates,
-                         builder: (context)=> defaultButton(
+
+                       (state is! shoploginloadingstates)?
+                          defaultButton(
                              onpre: ()
                          {
                            if(fromkey.currentState!.validate())
@@ -144,21 +148,22 @@ class shoploginscreen extends StatelessWidget {
 
 
 
-                         }, text: 'LOGIN'),
-                           fallback: (context)=>const Center(child: CircularProgressIndicator()),
-                       ),
+                         }, text: 'LOGIN'):
+                       Center(
+                           child: AdaptiveIndicator(
+                             os: getOS(),
+                           )),
                        Row(
                          mainAxisAlignment: MainAxisAlignment.center,
                          children: [
                            Text('Don\'n have an acount ? ',
                              style: Theme.of(context).textTheme.bodyText1,
                            ),
-                           defaultTextButton(
-                             onpre: (){
-                               NavigatorTo(context,ShopregisterScreen());
-                             },
-                             label: 'register' ,
-                           )
+
+                           TextButton(onPressed: (){
+                             NavigatorTo(context, ShopregisterScreen());
+
+                           }, child: Text('register'))
                          ],
                        )
 

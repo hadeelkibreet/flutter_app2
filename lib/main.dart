@@ -8,6 +8,7 @@ import 'package:flutter_app2/moduls/shop_app/on_boarding.dart';
 import 'package:flutter_app2/moduls/shop_app/shop_login/shop_login.dart';
 import 'package:flutter_app2/netWork/local/cache_helper.dart';
 import 'package:flutter_app2/shared/bloc_observer.dart';
+import 'package:flutter_app2/shared/components/constants.dart';
 import 'package:flutter_app2/shared/cubit/cubit.dart';
 import 'package:flutter_app2/shared/cubit/states.dart';
 import 'package:flutter_app2/shared/styles/themes.dart';
@@ -27,11 +28,11 @@ void main() async{
   DioHelper.init();
  await CacheHelper.init();
 
- bool? isdark = CacheHelper.getData(Key1: 'isdark');
+  bool? isdark = CacheHelper.getData(key: 'isDark');
  Widget widget;
-  bool? onBoarding = CacheHelper.getData(Key1: 'onBoarding');
-  String ?token = CacheHelper.getData(Key1: 'token');
-  print(token);
+  bool ?onBoarding = CacheHelper.getData(key: 'onBoarding');
+  token = CacheHelper.getData(key: 'token');
+  print(token.toString()+'mainnnn');
   if(onBoarding!=null)
   {
     if(token!= null) widget= shopLayuot();

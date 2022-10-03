@@ -9,13 +9,13 @@ import 'package:flutter_app2/moduls/shop_app/favorits/favoritesScreen.dart';
 import 'package:flutter_app2/moduls/shop_app/products/productsScreen.dart';
 import 'package:flutter_app2/moduls/shop_app/settings/settingsScreen.dart';
 import 'package:flutter_app2/netWork/remote/dio_helper.dart';
+import 'package:flutter_app2/shared/components/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_app2/netWork/end_points.dart';
 
 import '../../../models/shopapp/FavoritesModel.dart';
 import '../../../models/user/user_model.dart';
 import '../../../netWork/local/cache_helper.dart';
-import '../../../shared/components/constants.dart';
 
 
 
@@ -39,6 +39,10 @@ class shoplayuotCubit extends Cubit<shopLayuotStates>
 
 void changeBottom(int index)
 {
+  if(index==0) getHomeData();
+  if(index==2) getFavorites();
+  if(index==3) getUserData();
+
   currentIndex=index;
   emit(shopChangeBottomNavStates());
 }
@@ -47,7 +51,9 @@ void changeBottom(int index)
   HomeModel? homeModel1;
   void getHomeData() {
     emit(ShopLoadingHomeDataState());
-    DioHelper.getData(url: HOME,token: token).then((value)
+    DioHelper.getData(url: HOME,
+        token: token
+    ).then((value)
     {
       homeModel1 = HomeModel.fromJson(value.data);
       homeModel1!.data!.products.forEach((element) {
@@ -122,36 +128,54 @@ void changeBottom(int index)
     ).then((value) {
       favoritesModel = FavoritesModel.fromJson(value.data);
       print(value.data);
+      print(token.toString()+'fevoret');
       emit(ShopSuccessGetChangeFavoritesState());
     }).catchError((error) {
       emit(ShopErrorChangeFavoritesState(error.toString()));
     });
   }
 
+  //shopUserDatamodel? userModel;
+  //
+  // void getUserDataa() {
+  //   emit(ShopLoadingGetUserDataState());
+  //   DioHelper.getData(
+  //     url: PROFILE,
+  //     token: token,
+  //   ).then((value) {
+  //
+  //
+  //     userModel = shopUserDatamodel.fromJson(value.data) ;
+  //     print(userModel!.data?.name );
+  //
+  //
+  //     emit(ShopSuccessGetUserDataState());
+  //   }).catchError((error) {
+  //     emit(ShopErrorUserDataState(error.toString()));
+  //     print(error);
+  //
+  //   });
+  // }
+
+
   shopUserDatamodel? userModel;
 
   void getUserData() {
     emit(ShopLoadingGetUserDataState());
+
     DioHelper.getData(
       url: PROFILE,
       token: token,
     ).then((value) {
-
-
-      userModel = shopUserDatamodel.fromJson(value.data) ;
-      print(userModel!.data?.name );
-
+      userModel = shopUserDatamodel.fromJson(value.data);
+      // printFullText(userModel.data.name);
 
       emit(ShopSuccessGetUserDataState());
     }).catchError((error) {
+      print(error.toString());
       emit(ShopErrorUserDataState(error.toString()));
-      print(error);
-
     });
   }
-
-
-
 
 }
 

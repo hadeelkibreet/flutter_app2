@@ -2,44 +2,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/models/shopapp/loginmodel.dart';
-import 'package:flutter_app2/moduls/shop_app/shop_login/cubitShop/statetsShop.dart';
+import 'package:flutter_app2/moduls/shop_app/shop_register/cubitShop_register/statetsShop_register.dart';
 import 'package:flutter_app2/netWork/end_points.dart';
 import 'package:flutter_app2/netWork/remote/dio_helper.dart';
 import 'package:flutter_app2/shared/components/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-class shoplogincubit extends Cubit<shoploginstates>{
+class shopregistercubit extends Cubit<shopregisterstates>{
 
 
-  shoplogincubit() : super(shoplogininitialstates());
+  shopregistercubit() : super(shopregisterinitialstates());
 
-  static shoplogincubit get(context)=> BlocProvider.of(context);
+  static shopregistercubit get(context)=> BlocProvider.of(context);
   late shoploginmodel loginmodel;
-  late bool errorlogin;
+  late bool errorregister;
 
-  void userlogin({
-  required String email,
-    required String password
-})
+  void userregister({
+    required String name,
+    required String email,
+    required String password,
+    required String phone,
+
+  })
   {
 
-    emit(shoploginloadingstates());
+    emit(shopregisterloadingstates());
     DioHelper.postData(
-        url: LOGIN,
+        url: REGISTER,
         data:{
           'email':email,
+          'name':name,
           'password':password,
+          'phone':phone,
+
         }, ).then((value) {
          print(value.data);
 
             loginmodel = shoploginmodel.fromJson(value.data);
-            print(loginmodel.data!.token.toString()+'user login');
-            emit(shoploginsuccessstates(loginmodel));
+
+            emit(shopregistersuccessstates(loginmodel));
           }).catchError((error){
 
           print(error.toString());
-          emit(shoploginerorrestates(error.toString()));
+          emit(shopregistererorrestates(error.toString()));
     });
   }
   bool ispass=true;
@@ -48,6 +54,6 @@ class shoplogincubit extends Cubit<shoploginstates>{
 {
   ispass =! ispass;
   Iconpass = ispass? Icons.visibility_off: Icons.visibility;
-  emit(shoploginispasswordstates());
+  emit(shopregisterispasswordstates());
 }
 }

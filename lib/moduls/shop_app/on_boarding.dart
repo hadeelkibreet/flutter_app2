@@ -44,7 +44,10 @@ class _onboardingscreenState extends State<onboardingscreen> {
   bool lastindex=false;
   void submit()
   {
-    CacheHelper.saveData(Key1: 'onBoarding', value1: true);
+    CacheHelper.saveData(
+      key: 'onBoarding',
+      value: true,
+    );
     NavigatorFinish(context,shoploginscreen());
   }
 

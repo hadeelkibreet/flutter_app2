@@ -1,13 +1,16 @@
-
-import 'package:buildcondition/buildcondition.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/layout/shopLayout/cubit/cubitShop.dart';
 import 'package:flutter_app2/layout/shopLayout/cubit/statesShop.dart';
 import 'package:flutter_app2/models/shopapp/cateogries_model.dart';
 import 'package:flutter_app2/models/shopapp/home_model.dart';
+import 'package:flutter_app2/shared/adaptive/adaptivw_indicator.dart';
 import 'package:flutter_app2/shared/styles/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_conditional_rendering/conditional.dart';
+import 'package:flutter/widgets.dart';
+import '../../../shared/components/constants.dart';
+import 'package:buildcondition/buildcondition.dart';
 class productsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -15,11 +18,20 @@ class productsScreen extends StatelessWidget {
         listener:(context,state){},
         builder: (context,state)
         {
-          return BuildCondition(
+          return
+            BuildCondition(
             condition:shoplayuotCubit.get(context).homeModel1!=null && shoplayuotCubit.get(context).categoriesModel!=null ,
             builder: (context)=>productsBulider(shoplayuotCubit.get(context).homeModel1!,shoplayuotCubit.get(context).categoriesModel!,context),
             fallback: (context)=>Center(child: CircularProgressIndicator()),
           );
+          // Conditional.single(
+          //   context: context,
+          //   conditionBuilder: (context) => (shoplayuotCubit.get(context).homeModel1 != null &&
+          //       shoplayuotCubit.get(context).categoriesModel != null),
+          //   widgetBuilder: (context) =>  builderWidget(shoplayuotCubit.get(context).homeModel1!,
+          //       shoplayuotCubit.get(context).categoriesModel!, context),
+          //   fallbackBuilder:(context) =>  Center(child: AdaptiveIndicator(os: getOS())),
+          // );
         }
 
     );

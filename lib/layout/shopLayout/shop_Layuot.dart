@@ -6,6 +6,7 @@ import 'package:flutter_app2/moduls/shop_app/search/searchScreen.dart';
 import 'package:flutter_app2/moduls/shop_app/shop_login/shop_login.dart';
 import 'package:flutter_app2/netWork/local/cache_helper.dart';
 import 'package:flutter_app2/shared/components/components.dart';
+import 'package:flutter_app2/shared/components/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class  shopLayuot extends StatelessWidget {
@@ -22,8 +23,13 @@ class  shopLayuot extends StatelessWidget {
               actions: [
                 IconButton(onPressed: ()
               {
-                NavigatorTo(context, searchScreen());
+                NavigatorTo(context, shoploginscreen());
               }, icon: Icon(Icons.search)),
+                IconButton(onPressed: ()
+                {
+                  print(token);
+
+                }, icon: Icon(Icons.safety_check_rounded)),
                 ],
               ),
               body:  cubit.bottomscreen[cubit.currentIndex],
