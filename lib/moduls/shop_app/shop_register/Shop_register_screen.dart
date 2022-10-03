@@ -29,7 +29,7 @@ class ShopregisterScreen extends StatelessWidget {
             listener: (context,state){
               if(state is shopregistersuccessstates)
               {
-                if(state.regstermodel.status == true){
+                if(state.regstermodel.status!){
                   print(state.regstermodel.message);
                   print(state.regstermodel.status);
                   print(state.regstermodel.data!.token);
@@ -40,9 +40,9 @@ class ShopregisterScreen extends StatelessWidget {
                   );
                   CacheHelper.saveData(
                     key: 'token',
-                    value: token,
+                    value: state.regstermodel.data!.token,
                   ).then((value) {
-                    token = state.regstermodel.data!.token!;
+                    token = state.regstermodel.data!.token;
                     print(value.toString()+'heer');
                     NavigatorFinish(context, shopLayuot());
                   });
@@ -145,17 +145,7 @@ class ShopregisterScreen extends StatelessWidget {
                                       name:namecontroller.text,
                                       phone: phonecontroller.text);
                                 };
-                                if(state is shopregistersuccessstates)
-                                {
-                                  SnackBar(content: Text('you click on buttom'),
-                                    elevation: 5.0,
-                                    backgroundColor: Colors.green,
-                                    behavior: SnackBarBehavior.floating,
 
-
-                                  );
-
-                                }
 
                               }, text: 'REGISTER'):
                               Center(
