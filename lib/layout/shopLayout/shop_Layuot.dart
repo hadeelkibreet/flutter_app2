@@ -26,11 +26,11 @@ class  shopLayuot extends StatelessWidget {
               {
                 NavigatorTo(context, searchScreen());
               }, icon: Icon(Icons.search)),
-                IconButton(onPressed: ()
-                {
-                  print(token);
-
-                }, icon: Icon(Icons.safety_check_rounded)),
+                // IconButton(onPressed: ()
+                // {
+                //   print(token);
+                //
+                // }, icon: Icon(Icons.safety_check_rounded)),
                 ],
               ),
               body:  cubit.bottomscreen[cubit.currentIndex],

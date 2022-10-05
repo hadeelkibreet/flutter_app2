@@ -47,13 +47,13 @@ class Data {
 
 
 class Product {
-  late int id;
-  late dynamic price;
-  late dynamic oldPrice;
-  late int discount;
-  late String image;
-  late String name;
-  late String description;
+   int? id;
+  dynamic ?price;
+  dynamic ?oldPrice;
+   int ?discount;
+   String? image;
+   String? name;
+   String ?description;
 
   Product(
       {required this.id,
